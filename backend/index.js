@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use('/api/user', userRoutes);
 app.use('/api/attendance', attendanceRouter);
 
- // Default Route
+ 
 // app.get((req, res) => {
 //   res.send('Hello Sanjay, Your Backend is Working!');
 // });
