@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { User } from '../models/userModel.js';
 import nodemailer from 'nodemailer';
 
-// Register
+// Registe
 export const registerUser = tryCatch(async (req, res) => {
     const { name, email, password } = req.body;
     let user = await User.findOne({ email });
