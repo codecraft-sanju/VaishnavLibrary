@@ -8,7 +8,7 @@ const getTwoMonthsAgoDate = () => {
   return date;
 };
 
-// Add attendance for login
+
 export const addAttendance = async (req, res) => {
   const { date } = req.body;
 
