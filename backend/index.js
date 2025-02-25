@@ -16,11 +16,11 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+
 app.use('/api/user', userRoutes);
 app.use('/api/attendance', attendanceRouter);
 
-// // Default Route
+ // Default Route
 // app.get((req, res) => {
 //   res.send('Hello Sanjay, Your Backend is Working!');
 // });
