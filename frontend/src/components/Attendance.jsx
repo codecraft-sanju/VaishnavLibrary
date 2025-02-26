@@ -14,15 +14,15 @@ const Attendance = () => {
     useAttendance();
 
   const handleSelectSlot = ({ start }) => {
-    const today = moment().startOf('day');
-    const selectedDate = moment(start).startOf('day');
-    const isToday = selectedDate.isSame(today);
+    const today = moment().startOf('day'); // Get today without time
+    const selectedDate = moment(start).startOf('day'); // Get selected date without time
+    const isToday = selectedDate.isSame(today, 'day'); // Compare only the day, ignore time
 
     if (isToday) {
-      markAttendance(today.format('YYYY-MM-DD'));
-      setShowPopup(false);
+      markAttendance(today.format('YYYY-MM-DD')); // Mark today's attendance
+      setShowPopup(false); // Hide the popup if the date is today
     } else {
-      setShowPopup(true);
+      setShowPopup(true); // Show the popup if it's not today's date
     }
   };
 

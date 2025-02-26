@@ -21,7 +21,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/attendance', attendanceRouter);
 
  
-// app.get((req, res) => {
+// app.get((req, res) = > {
 //   res.send('Hello Sanjay, Your Backend is Working!');
 // });
 
