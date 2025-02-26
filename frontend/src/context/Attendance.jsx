@@ -5,23 +5,23 @@ import { UserData } from './User';
 
 const AttendanceContext = createContext();
 
-
 const AttendanceProvider = ({ children }) => {
   const [attendanceHistory, setAttendanceHistory] = useState([]);
   const [hasFetched, setHasFetched] = useState(false);
-  const { role } = UserData(); // Get role from User context
-
+  const { role } = UserData(); 
   // Fetch attendance history
   const fetchAttendanceHistory = async () => {
-    if (!role || hasFetched) return; // Ensure role is available and prevent multiple calls
+    if (!role || hasFetched) return; 
 
     try {
-      const endpoint = role === 'admin' ? '/api/attendance/admin/get-attendance' : '/api/attendance/get-attendance';
+      const endpoint =
+        role === 'admin' ? '/api/attendance/get-attendance' : '/api/attendance/get-attendance'; 
       const response = await axios.get(endpoint);
-      setAttendanceHistory(response.data.map((record) => record));
-      setHasFetched(true); // Mark as fetched
+      setAttendanceHistory(response.data || []);
+      setHasFetched(true); 
     } catch (error) {
       console.error('Failed to fetch attendance records.');
+      toast.error('Failed to fetch attendance records.'); 
     }
   };
 
@@ -32,10 +32,11 @@ const AttendanceProvider = ({ children }) => {
 
       if (response.status === 201) {
         toast.success('Attendance marked for today!');
-        setAttendanceHistory((prev) => [...prev, date]);
+        setAttendanceHistory((prev) => [...prev, { date }]); 
       }
     } catch (error) {
-      toast.info(error.response?.data?.error || 'Failed to mark attendance.');
+      const errorMessage = error.response?.data?.error || 'Failed to mark attendance.';
+      toast.info(errorMessage); 
     }
   };
 
@@ -43,17 +44,19 @@ const AttendanceProvider = ({ children }) => {
   const clearAttendanceHistory = async () => {
     try {
       await axios.delete('/api/attendance/delete-attendance');
-      setAttendanceHistory([]);
+      setAttendanceHistory([]); 
       toast.success('Attendance history cleared!');
-      setHasFetched(false); // Allow refetching when history is cleared
+      setHasFetched(false); 
     } catch (error) {
       toast.error('Failed to clear attendance history.');
     }
   };
 
   useEffect(() => {
-    fetchAttendanceHistory();
-  }, [role]); // Runs when role changes
+    if (role) {
+      fetchAttendanceHistory();
+    }
+  }, [role]);
 
   return (
     <AttendanceContext.Provider
@@ -66,5 +69,3 @@ const AttendanceProvider = ({ children }) => {
 
 export const useAttendance = () => useContext(AttendanceContext);
 export default AttendanceProvider;
-
-
