@@ -65,9 +65,9 @@ const Attendance = () => {
 
         <div className="w-full p-6 bg-white rounded-lg shadow-lg md:w-64">
           <h2 className="mb-4 text-xl font-semibold">Attendance History</h2>
-          {attendanceHistory.length > 0 ? (
+          {attendanceHistory && attendanceHistory.length > 0 ? (
             <ul className="text-left list-disc list-inside">
-              {attendanceHistory.map((record, index) => (
+              {attendanceHistory && attendanceHistory.map((record, index) => (
                 <li key={record._id || index} className="text-gray-700">
                   {record.date}
                 </li>
