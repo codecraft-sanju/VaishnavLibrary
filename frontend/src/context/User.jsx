@@ -54,7 +54,6 @@ export const UserProvider = ({ children }) => {
             setIsAuth(true);
             setIsLoading(false);
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to fetch user data.");
             setIsAuth(false);
             setIsLoading(false);
         }
